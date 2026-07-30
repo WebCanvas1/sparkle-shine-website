@@ -231,7 +231,7 @@ function SettingEditor({ settingKey, fields }: { settingKey: string; fields: Fie
   const save = async () => {
     const { error } = await supabase
       .from("site_settings")
-      .upsert({ key: settingKey, value: draft });
+      .upsert({ key: settingKey, value: draft as never });
     if (error) return toast.error(error.message);
     toast.success("Saved");
     queryClient.invalidateQueries();
