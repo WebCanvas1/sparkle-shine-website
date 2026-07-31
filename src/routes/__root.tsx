@@ -88,6 +88,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:site_name", content: "Sparkle Cleaning Services" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:title", content: "Sparkle Cleaning Services | Premium Cleaning" },
+      { name: "twitter:title", content: "Sparkle Cleaning Services | Premium Cleaning" },
+      { property: "og:description", content: "Premium residential, commercial and car cleaning. Fully insured, eco-friendly and 100% satisfaction guaranteed." },
+      { name: "twitter:description", content: "Premium residential, commercial and car cleaning. Fully insured, eco-friendly and 100% satisfaction guaranteed." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/677248c6-1306-4dc2-b695-ac63b677c7f5/id-preview-68846399--62ecf093-6ea5-46f6-806e-bc300a3afa16.lovable.app-1785473016777.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/677248c6-1306-4dc2-b695-ac63b677c7f5/id-preview-68846399--62ecf093-6ea5-46f6-806e-bc300a3afa16.lovable.app-1785473016777.png" },
     ],
     links: [
       {
