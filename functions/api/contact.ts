@@ -27,11 +27,13 @@ const json = (body: unknown, status = 200) =>
 /** Trim, collapse control characters and cap length. */
 function clean(value: unknown, max: number): string {
   if (typeof value !== "string") return "";
-  return value
-    // eslint-disable-next-line no-control-regex
-    .replace(/[\u0000-\u001F\u007F]/g, " ")
-    .trim()
-    .slice(0, max);
+  return (
+    value
+      // eslint-disable-next-line no-control-regex
+      .replace(/[\u0000-\u001F\u007F]/g, " ")
+      .trim()
+      .slice(0, max)
+  );
 }
 
 function escapeHtml(value: string): string {
