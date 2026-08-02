@@ -95,7 +95,7 @@ export type Faq = {
 };
 
 export const defaultHero: HeroContent = {
-  eyebrow: "Sydney's trusted cleaning specialists",
+  eyebrow: "Perth's trusted cleaning specialists",
   headline: "Professional Cleaning Services You Can Trust",
   subheadline:
     "Residential, Commercial & Car Cleaning delivered with exceptional attention to detail.",
@@ -120,11 +120,12 @@ export const defaultAbout: AboutContent = {
 };
 
 export const defaultContact: ContactContent = {
-  phone: "+61 400 000 000",
-  whatsapp: "61400000000",
-  email: "hello@sparklecleaning.com.au",
-  address: "12 Harbour Street, Sydney NSW 2000",
-  map_embed_url: "https://www.google.com/maps?q=Sydney+NSW+Australia&output=embed",
+  phone: "0416 477 753",
+  whatsapp: "61416477753",
+  email: "sparklecleaningaustralia@gmail.com",
+  address: "Perth, WA",
+  map_embed_url:
+    "https://www.google.com/maps?q=Perth+WA+Australia&output=embed",
   hours: [
     { day: "Monday – Friday", time: "7:00am – 7:00pm" },
     { day: "Saturday", time: "8:00am – 5:00pm" },
@@ -144,7 +145,12 @@ export const fallbackServices: Service[] = [
     description:
       "Immaculate homes, every visit. Our residential teams work to a detailed checklist so nothing is ever missed.",
     image_url: "",
-    features: ["Regular Cleaning", "Deep Cleaning", "End of Lease", "Spring Cleaning"],
+    features: [
+      "Regular Cleaning",
+      "Deep Cleaning",
+      "End of Lease",
+      "Spring Cleaning",
+    ],
     cta_text: "Get Free Quote",
     sort_order: 1,
     is_published: true,
@@ -170,7 +176,13 @@ export const fallbackServices: Service[] = [
     description:
       "Showroom-standard detailing inside and out, using pH-neutral products that protect your paint and interior.",
     image_url: "",
-    features: ["Interior", "Exterior", "Detailing", "Vacuum", "Steam Cleaning"],
+    features: [
+      "Interior",
+      "Exterior",
+      "Detailing",
+      "Vacuum",
+      "Steam Cleaning",
+    ],
     cta_text: "Book a Detail",
     sort_order: 3,
     is_published: true,
@@ -247,7 +259,7 @@ export const fallbackTestimonials: Testimonial[] = [
   {
     id: "t1",
     name: "Emily Harper",
-    location: "Bondi, NSW",
+    location: "Scarborough, WA",
     rating: 5,
     quote:
       "The team was punctual, thorough and genuinely lovely. Our apartment has never looked this good — even the skirting boards were spotless.",
@@ -257,7 +269,7 @@ export const fallbackTestimonials: Testimonial[] = [
   {
     id: "t2",
     name: "Daniel Nguyen",
-    location: "Parramatta, NSW",
+    location: "Perth CBD, WA",
     rating: 5,
     quote:
       "We use Sparkle for our office of 40 staff. Consistent, reliable and always invisible — we arrive to a perfect workspace every morning.",
@@ -267,7 +279,7 @@ export const fallbackTestimonials: Testimonial[] = [
   {
     id: "t3",
     name: "Sofia Rossi",
-    location: "Manly, NSW",
+    location: "Joondalup, WA",
     rating: 5,
     quote:
       "Booked an end of lease clean and got the full bond back with zero fuss. Worth every dollar.",
