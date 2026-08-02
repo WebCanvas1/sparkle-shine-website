@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import logoAsset from "@/assets/sparkle-logo.jpg.asset.json";
+import logoSrc from "@/assets/sparkle-logo.webp";
 import { cn } from "@/lib/utils";
 
-export const logoUrl = logoAsset.url;
+export const logoUrl = logoSrc;
 
 export function Logo({
   className,
