@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+
+import { seoUrlTags } from "@/lib/seo";
 import { Compass, Heart, Target } from "lucide-react";
 
 import { Reveal } from "@/components/site/Reveal";
@@ -19,10 +21,10 @@ export const Route = createFileRoute("/_site/about")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-      { property: "og:url", content: "/about" },
       { property: "og:type", content: "website" },
+      ...seoUrlTags("/about").meta,
     ],
-    links: [{ rel: "canonical", href: "/about" }],
+    links: seoUrlTags("/about").links,
   }),
   component: AboutPage,
 });

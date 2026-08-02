@@ -2,10 +2,18 @@ import { Leaf, ShieldCheck, Sparkles, Users } from "lucide-react";
 import { Reveal } from "../Reveal";
 
 const features = [
-  { Icon: ShieldCheck, title: "Fully Insured", text: "Public liability cover on every single job." },
+  {
+    Icon: ShieldCheck,
+    title: "Fully Insured",
+    text: "Public liability cover on every single job.",
+  },
   { Icon: Leaf, title: "Eco-Friendly Products", text: "Safe around children, pets and allergies." },
   { Icon: Users, title: "Experienced Cleaners", text: "Trained, police-checked, uniformed teams." },
-  { Icon: Sparkles, title: "100% Satisfaction", text: "Not happy? We re-clean it free within 48h." },
+  {
+    Icon: Sparkles,
+    title: "100% Satisfaction",
+    text: "Not happy? We re-clean it free within 48h.",
+  },
 ];
 
 export function Features() {

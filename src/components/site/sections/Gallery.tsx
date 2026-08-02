@@ -99,7 +99,12 @@ function BeforeAfter({ before, after }: { before: string; after: string }) {
       onPointerMove={(e) => e.buttons === 1 && move(e.clientX)}
       onPointerDown={(e) => move(e.clientX)}
     >
-      <img src={before} alt="Before cleaning" loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+      <img
+        src={before}
+        alt="Before cleaning"
+        loading="lazy"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
       <div className="absolute inset-0 overflow-hidden" style={{ width: `${pos}%` }}>
         <img
           src={after}
@@ -115,10 +120,7 @@ function BeforeAfter({ before, after }: { before: string; after: string }) {
       <span className="absolute right-4 top-4 rounded-full glass-panel px-3 py-1 text-xs font-bold uppercase tracking-wider text-navy">
         Before
       </span>
-      <div
-        className="absolute inset-y-0 w-1 bg-primary-foreground/90"
-        style={{ left: `${pos}%` }}
-      >
+      <div className="absolute inset-y-0 w-1 bg-primary-foreground/90" style={{ left: `${pos}%` }}>
         <span className="absolute left-1/2 top-1/2 grid h-12 w-12 -translate-x-1/2 -translate-y-1/2 cursor-ew-resize place-items-center rounded-full gradient-brand text-primary-foreground shadow-lift">
           <MoveHorizontal className="h-5 w-5" />
         </span>

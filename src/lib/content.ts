@@ -1,15 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-
-import heroImg from "@/assets/hero-cleaning.jpg";
-import residentialImg from "@/assets/service-residential.jpg";
-import commercialImg from "@/assets/service-commercial.jpg";
-import carImg from "@/assets/service-car.jpg";
-import teamImg from "@/assets/team.jpg";
-import galleryKitchen from "@/assets/gallery-kitchen.jpg";
-import galleryBathroom from "@/assets/gallery-bathroom.jpg";
-import galleryCarInterior from "@/assets/gallery-car-interior.jpg";
-import galleryRetail from "@/assets/gallery-retail.jpg";
+import heroImg from "@/assets/hero-cleaning.webp";
+import residentialImg from "@/assets/service-residential.webp";
+import commercialImg from "@/assets/service-commercial.webp";
+import carImg from "@/assets/service-car.webp";
+import teamImg from "@/assets/team.webp";
+import galleryKitchen from "@/assets/gallery-kitchen.webp";
+import galleryBathroom from "@/assets/gallery-bathroom.webp";
+import galleryCarInterior from "@/assets/gallery-car-interior.webp";
+import galleryRetail from "@/assets/gallery-retail.webp";
 
 export const localImages = {
   hero: heroImg,
@@ -272,7 +269,8 @@ export const fallbackTestimonials: Testimonial[] = [
     name: "Sofia Rossi",
     location: "Manly, NSW",
     rating: 5,
-    quote: "Booked an end of lease clean and got the full bond back with zero fuss. Worth every dollar.",
+    quote:
+      "Booked an end of lease clean and got the full bond back with zero fuss. Worth every dollar.",
     sort_order: 3,
     is_published: true,
   },
@@ -312,96 +310,19 @@ export const serviceImageFor = (slug: string, imageUrl: string) => {
   return residentialImg;
 };
 
-async function fetchSetting<T>(key: string, fallback: T): Promise<T> {
-  const { data, error } = await supabase
-    .from("site_settings")
-    .select("value")
-    .eq("key", key)
-    .maybeSingle();
-  if (error || !data?.value) return fallback;
-  return { ...fallback, ...(data.value as object) } as T;
-}
-
-export function useHero() {
-  return useQuery({
-    queryKey: ["settings", "hero"],
-    queryFn: () => fetchSetting<HeroContent>("hero", defaultHero),
-    initialData: defaultHero,
-  });
-}
-
-export function useAbout() {
-  return useQuery({
-    queryKey: ["settings", "about"],
-    queryFn: () => fetchSetting<AboutContent>("about", defaultAbout),
-    initialData: defaultAbout,
-  });
-}
-
-export function useContact() {
-  return useQuery({
-    queryKey: ["settings", "contact"],
-    queryFn: () => fetchSetting<ContactContent>("contact", defaultContact),
-    initialData: defaultContact,
-  });
-}
-
-export function useServices() {
-  return useQuery({
-    queryKey: ["services"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("services")
-        .select("*")
-        .order("sort_order", { ascending: true });
-      if (error || !data?.length) return fallbackServices;
-      return data as Service[];
-    },
-    initialData: fallbackServices,
-  });
-}
-
-export function useGallery() {
-  return useQuery({
-    queryKey: ["gallery"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("gallery_items")
-        .select("*")
-        .order("sort_order", { ascending: true });
-      if (error || !data?.length) return fallbackGallery;
-      return data as GalleryItem[];
-    },
-    initialData: fallbackGallery,
-  });
-}
-
-export function useTestimonials() {
-  return useQuery({
-    queryKey: ["testimonials"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("testimonials")
-        .select("*")
-        .order("sort_order", { ascending: true });
-      if (error || !data?.length) return fallbackTestimonials;
-      return data as Testimonial[];
-    },
-    initialData: fallbackTestimonials,
-  });
-}
-
-export function useFaqs() {
-  return useQuery({
-    queryKey: ["faqs"],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("faqs")
-        .select("*")
-        .order("sort_order", { ascending: true });
-      if (error || !data?.length) return fallbackFaqs;
-      return data as Faq[];
-    },
-    initialData: fallbackFaqs,
-  });
-}
+/*
+ * Content source.
+ *
+ * The site is fully static: every section reads from the typed constants
+ * above, which are bundled at build time. Edit the constants to change the
+ * live copy — no backend, no runtime fetch, nothing to configure.
+ *
+ * The hook shape (`{ data }`) is kept so section components stay untouched.
+ */
+export const useHero = () => ({ data: defaultHero });
+export const useAbout = () => ({ data: defaultAbout });
+export const useContact = () => ({ data: defaultContact });
+export const useServices = () => ({ data: fallbackServices });
+export const useGallery = () => ({ data: fallbackGallery });
+export const useTestimonials = () => ({ data: fallbackTestimonials });
+export const useFaqs = () => ({ data: fallbackFaqs });

@@ -2,10 +2,22 @@ import { Reveal } from "../Reveal";
 import { SectionHeading } from "../SectionHeading";
 
 const steps = [
-  { title: "Request Quote", text: "Tell us about your space in 60 seconds. We reply with a fixed price the same day." },
-  { title: "Schedule Service", text: "Pick a time that suits — mornings, evenings or weekends, no surcharge." },
-  { title: "Professional Cleaning", text: "Our uniformed team arrives fully equipped and works to a detailed checklist." },
-  { title: "Enjoy Your Sparkling Space", text: "We walk you through the finish. Not perfect? We come back free." },
+  {
+    title: "Request Quote",
+    text: "Tell us about your space in 60 seconds. We reply with a fixed price the same day.",
+  },
+  {
+    title: "Schedule Service",
+    text: "Pick a time that suits — mornings, evenings or weekends, no surcharge.",
+  },
+  {
+    title: "Professional Cleaning",
+    text: "Our uniformed team arrives fully equipped and works to a detailed checklist.",
+  },
+  {
+    title: "Enjoy Your Sparkling Space",
+    text: "We walk you through the finish. Not perfect? We come back free.",
+  },
 ];
 
 export function HowItWorks() {

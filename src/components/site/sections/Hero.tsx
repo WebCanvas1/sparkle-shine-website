@@ -40,9 +40,7 @@ export function Hero() {
           <Reveal delay={80}>
             <h1 className="mt-6 text-4xl font-extrabold leading-[1.05] text-navy sm:text-5xl lg:text-6xl">
               {hero.headline.split(" ").slice(0, -2).join(" ")}{" "}
-              <span className="text-gradient">
-                {hero.headline.split(" ").slice(-2).join(" ")}
-              </span>
+              <span className="text-gradient">{hero.headline.split(" ").slice(-2).join(" ")}</span>
             </h1>
           </Reveal>
 
