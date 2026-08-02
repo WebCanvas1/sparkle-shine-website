@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { seoUrlTags } from "@/lib/seo";
+
 import { ContactSection } from "@/components/site/sections/Contact";
 import { FaqSection } from "@/components/site/sections/Faq";
 
@@ -14,10 +16,10 @@ export const Route = createFileRoute("/_site/contact")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-      { property: "og:url", content: "/contact" },
-      { property: "og:type", content: "website" },
+            { property: "og:type", content: "website" },
+      ...seoUrlTags("/contact").meta,
     ],
-    links: [{ rel: "canonical", href: "/contact" }],
+    links: seoUrlTags("/contact").links,
   }),
   component: ContactPage,
 });

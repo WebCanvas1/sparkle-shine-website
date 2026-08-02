@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { seoUrlTags } from "@/lib/seo";
+
 import { ServicesSection } from "@/components/site/sections/Services";
 import { HowItWorks } from "@/components/site/sections/HowItWorks";
 import { FaqSection } from "@/components/site/sections/Faq";
@@ -17,10 +19,10 @@ export const Route = createFileRoute("/_site/services")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-      { property: "og:url", content: "/services" },
-      { property: "og:type", content: "website" },
+            { property: "og:type", content: "website" },
+      ...seoUrlTags("/services").meta,
     ],
-    links: [{ rel: "canonical", href: "/services" }],
+    links: seoUrlTags("/services").links,
   }),
   component: ServicesPage,
 });
