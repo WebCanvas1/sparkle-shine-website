@@ -28,7 +28,8 @@ const json = (body: unknown, status = 200) =>
 function clean(value: unknown, max: number): string {
   if (typeof value !== "string") return "";
   return value
-    .replace(/[\u0000-\u001f\u007f]/g, " ")
+    // eslint-disable-next-line no-control-regex
+    .replace(/[\u0000-\u001F\u007F]/g, " ")
     .trim()
     .slice(0, max);
 }
