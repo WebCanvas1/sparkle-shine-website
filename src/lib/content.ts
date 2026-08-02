@@ -123,7 +123,7 @@ export const defaultContact: ContactContent = {
   phone: "0416 477 753",
   whatsapp: "61416477753",
   email: "sparklecleaningaustralia@gmail.com",
-  address: "Perth, WA",
+  address: "Perth, Western Australia",
   map_embed_url:
     "https://www.google.com/maps?q=Perth+WA+Australia&output=embed",
   hours: [
