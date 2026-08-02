@@ -2,5 +2,12 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "sparkle-cleaning-services",
   "compatibility_date": "2026-08-01",
-  "pages_build_output_dir": "./dist"
+  "pages_build_output_dir": "./dist",
+
+  "kv_namespaces": [
+    {
+      "binding": "SPARKLE_CONTENT",
+      "id": "a3088017ca204991816bf64697ed7b7c"
+    }
+  ]
 }
