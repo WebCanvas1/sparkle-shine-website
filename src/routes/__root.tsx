@@ -5,13 +5,10 @@ import {
   createRootRouteWithContext,
   useRouter,
   HeadContent,
-  Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
 
-import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Toaster } from "@/components/ui/sonner";
+import { SITE_URL } from "@/lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -38,9 +35,6 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
-  }, [error]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -76,37 +70,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Sparkle Cleaning Services | Premium Cleaning" },
-      {
-        name: "description",
-        content:
-          "Premium residential, commercial and car cleaning. Fully insured, eco-friendly and 100% satisfaction guaranteed.",
-      },
       { name: "author", content: "Sparkle Cleaning Services" },
       { property: "og:site_name", content: "Sparkle Cleaning Services" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:title", content: "Sparkle Cleaning Services | Premium Cleaning" },
-      { name: "twitter:title", content: "Sparkle Cleaning Services | Premium Cleaning" },
-      { property: "og:description", content: "Premium residential, commercial and car cleaning. Fully insured, eco-friendly and 100% satisfaction guaranteed." },
-      { name: "twitter:description", content: "Premium residential, commercial and car cleaning. Fully insured, eco-friendly and 100% satisfaction guaranteed." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/677248c6-1306-4dc2-b695-ac63b677c7f5/id-preview-68846399--62ecf093-6ea5-46f6-806e-bc300a3afa16.lovable.app-1785473016777.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/677248c6-1306-4dc2-b695-ac63b677c7f5/id-preview-68846399--62ecf093-6ea5-46f6-806e-bc300a3afa16.lovable.app-1785473016777.png" },
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-      { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap",
-      },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
     scripts: [
       {
@@ -117,6 +84,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           name: "Sparkle Cleaning Services",
           description:
             "Residential, commercial and car cleaning services delivered with exceptional attention to detail.",
+          ...(SITE_URL ? { url: SITE_URL } : {}),
           telephone: "+61 400 000 000",
           email: "hello@sparklecleaning.com.au",
           address: {
@@ -132,31 +100,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
     ],
   }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
   errorComponent: ErrorComponent,
 });
-
-function RootShell({ children }: { children: ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
+      <HeadContent />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
       <Toaster position="top-center" richColors />
