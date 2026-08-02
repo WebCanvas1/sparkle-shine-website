@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Clock, Mail, MapPin, Phone, Send } from "lucide-react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -11,7 +11,8 @@ import { Logo } from "../Logo";
 import { Reveal } from "../Reveal";
 import { SectionHeading } from "../SectionHeading";
 import { useContact } from "@/lib/content";
-import { supabase } from "@/integrations/supabase/client";
+
+const TURNSTILE_SITE_KEY = (import.meta.env.VITE_TURNSTILE_SITE_KEY ?? "").trim();
 
 const schema = z.object({
   name: z.string().trim().min(2, "Please enter your name").max(100),
@@ -23,6 +24,21 @@ const schema = z.object({
 export function ContactSection() {
   const { data: contact } = useContact();
   const [submitting, setSubmitting] = useState(false);
+  const turnstileRef = useRef<HTMLDivElement>(null);
+
+  // Cloudflare Turnstile — rendered only when a site key is configured.
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY || !turnstileRef.current) return;
+    const id = "cf-turnstile-script";
+    if (!document.getElementById(id)) {
+      const script = document.createElement("script");
+      script.id = id;
+      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+    }
+  }, []);
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -35,16 +51,34 @@ export function ContactSection() {
       return;
     }
 
-    setSubmitting(true);
-    const { error } = await supabase.from("enquiries").insert(parsed.data);
-    setSubmitting(false);
-
-    if (error) {
-      toast.error("Something went wrong. Please call us instead.");
+    const token = String(values["cf-turnstile-response"] ?? "");
+    if (TURNSTILE_SITE_KEY && !token) {
+      toast.error("Please complete the spam check and try again.");
       return;
     }
-    toast.success("Thanks! We'll be in touch within a few hours.");
-    form.reset();
+
+    setSubmitting(true);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...parsed.data, turnstileToken: token }),
+      });
+      const result = (await response.json().catch(() => ({}))) as { error?: string };
+
+      if (!response.ok) {
+        toast.error(result.error ?? "Something went wrong. Please call us instead.");
+        return;
+      }
+
+      toast.success("Thanks! We'll be in touch within a few hours.");
+      form.reset();
+      window.turnstile?.reset();
+    } catch {
+      toast.error("Something went wrong. Please call us instead.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -155,6 +189,15 @@ export function ContactSection() {
                 </div>
               </div>
 
+              {TURNSTILE_SITE_KEY && (
+                <div
+                  ref={turnstileRef}
+                  className="cf-turnstile mt-6"
+                  data-sitekey={TURNSTILE_SITE_KEY}
+                  data-theme="light"
+                />
+              )}
+
               <Button
                 type="submit"
                 variant="hero"
@@ -173,4 +216,9 @@ export function ContactSection() {
       </div>
     </section>
   );
+}
+declare global {
+  interface Window {
+    turnstile?: { reset: (widget?: string) => void };
+  }
 }
