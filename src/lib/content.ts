@@ -269,7 +269,8 @@ export const fallbackTestimonials: Testimonial[] = [
     name: "Sofia Rossi",
     location: "Manly, NSW",
     rating: 5,
-    quote: "Booked an end of lease clean and got the full bond back with zero fuss. Worth every dollar.",
+    quote:
+      "Booked an end of lease clean and got the full bond back with zero fuss. Worth every dollar.",
     sort_order: 3,
     is_published: true,
   },

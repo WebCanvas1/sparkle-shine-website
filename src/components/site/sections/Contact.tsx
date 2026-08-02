@@ -124,7 +124,8 @@ export function ContactSection() {
                   <div className="space-y-1.5">
                     {contact.hours.map((h) => (
                       <p key={h.day} className="text-navy-foreground/80">
-                        <span className="font-semibold text-navy-foreground">{h.day}</span> · {h.time}
+                        <span className="font-semibold text-navy-foreground">{h.day}</span> ·{" "}
+                        {h.time}
                       </p>
                     ))}
                   </div>
@@ -151,7 +152,13 @@ export function ContactSection() {
               <div className="grid gap-5 sm:grid-cols-2">
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>
-                  <Input id="name" name="name" required maxLength={100} className="h-12 rounded-xl" />
+                  <Input
+                    id="name"
+                    name="name"
+                    required
+                    maxLength={100}
+                    className="h-12 rounded-xl"
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone</Label>

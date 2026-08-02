@@ -17,7 +17,7 @@ export const Route = createFileRoute("/_site/gallery")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-            { property: "og:type", content: "website" },
+      { property: "og:type", content: "website" },
       ...seoUrlTags("/gallery").meta,
     ],
     links: seoUrlTags("/gallery").links,

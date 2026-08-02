@@ -19,7 +19,7 @@ export const Route = createFileRoute("/_site/services")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-            { property: "og:type", content: "website" },
+      { property: "og:type", content: "website" },
       ...seoUrlTags("/services").meta,
     ],
     links: seoUrlTags("/services").links,

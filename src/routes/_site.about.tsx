@@ -21,7 +21,7 @@ export const Route = createFileRoute("/_site/about")({
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-            { property: "og:type", content: "website" },
+      { property: "og:type", content: "website" },
       ...seoUrlTags("/about").meta,
     ],
     links: seoUrlTags("/about").links,

@@ -16,7 +16,11 @@ export function Logo({
   withText?: boolean;
 }) {
   return (
-    <Link to="/" className={cn("flex min-w-0 items-center gap-3", className)} aria-label="Sparkle Cleaning Services home">
+    <Link
+      to="/"
+      className={cn("flex min-w-0 items-center gap-3", className)}
+      aria-label="Sparkle Cleaning Services home"
+    >
       <span
         className="grid shrink-0 place-items-center overflow-hidden rounded-2xl bg-background shadow-soft"
         style={{ width: size, height: size }}

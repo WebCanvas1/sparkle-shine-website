@@ -45,7 +45,10 @@ export function ServicesSection({ compact = false }: { compact?: boolean }) {
                   {!compact && (
                     <ul className="mt-6 space-y-2.5">
                       {service.features.map((f) => (
-                        <li key={f} className="flex items-center gap-3 text-sm font-medium text-navy">
+                        <li
+                          key={f}
+                          className="flex items-center gap-3 text-sm font-medium text-navy"
+                        >
                           <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-accent text-primary">
                             <Check className="h-3 w-3" />
                           </span>

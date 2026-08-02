@@ -3,12 +3,36 @@ import { Reveal } from "../Reveal";
 import { SectionHeading } from "../SectionHeading";
 
 const reasons = [
-  { Icon: Users, title: "Experienced Team", text: "Every cleaner is trained in-house to our 60-point finish standard." },
-  { Icon: PiggyBank, title: "Affordable Pricing", text: "Transparent fixed quotes with no hidden call-out fees." },
-  { Icon: ShieldCheck, title: "Fully Insured", text: "Comprehensive public liability cover for total peace of mind." },
-  { Icon: BadgeCheck, title: "Reliable Service", text: "On time, every time — or your next clean is discounted." },
-  { Icon: Leaf, title: "Eco Friendly", text: "Low-tox, biodegradable products safe for family and pets." },
-  { Icon: CalendarClock, title: "Flexible Scheduling", text: "Early mornings, evenings and weekends at no extra charge." },
+  {
+    Icon: Users,
+    title: "Experienced Team",
+    text: "Every cleaner is trained in-house to our 60-point finish standard.",
+  },
+  {
+    Icon: PiggyBank,
+    title: "Affordable Pricing",
+    text: "Transparent fixed quotes with no hidden call-out fees.",
+  },
+  {
+    Icon: ShieldCheck,
+    title: "Fully Insured",
+    text: "Comprehensive public liability cover for total peace of mind.",
+  },
+  {
+    Icon: BadgeCheck,
+    title: "Reliable Service",
+    text: "On time, every time — or your next clean is discounted.",
+  },
+  {
+    Icon: Leaf,
+    title: "Eco Friendly",
+    text: "Low-tox, biodegradable products safe for family and pets.",
+  },
+  {
+    Icon: CalendarClock,
+    title: "Flexible Scheduling",
+    text: "Early mornings, evenings and weekends at no extra charge.",
+  },
 ];
 
 export function WhyChooseUs() {
