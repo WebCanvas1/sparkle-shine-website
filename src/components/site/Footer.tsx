@@ -99,7 +99,12 @@ export function Footer() {
 
         <div className="mt-14 flex flex-col gap-3 border-t border-navy-foreground/15 pt-6 text-xs text-navy-foreground/55 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} Sparkle Cleaning Services. All rights reserved.</p>
-          <p>Fully insured · Police-checked cleaners · Eco-friendly products</p>
+          <p className="flex items-center gap-3">
+            <span>Fully insured · Police-checked cleaners · Eco-friendly products</span>
+            <Link to="/admin" className="opacity-50 transition-opacity hover:opacity-100">
+              Admin
+            </Link>
+          </p>
         </div>
       </div>
     </footer>

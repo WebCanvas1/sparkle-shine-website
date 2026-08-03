@@ -3,7 +3,7 @@ import { MoveHorizontal } from "lucide-react";
 
 import { Reveal } from "../Reveal";
 import { SectionHeading } from "../SectionHeading";
-import { localImages, useGallery } from "@/lib/content";
+import { galleryImageFor, localImages, useGallery } from "@/lib/content";
 import { cn } from "@/lib/utils";
 
 const categories = ["All", "Homes", "Offices", "Cars"] as const;
@@ -49,7 +49,7 @@ export function GallerySection() {
             <Reveal key={item.id} delay={(i % 3) * 90} className="mb-5 break-inside-avoid">
               <figure className="group relative overflow-hidden rounded-[1.5rem] shadow-soft">
                 <img
-                  src={item.image_url}
+                  src={galleryImageFor(item)}
                   alt={item.title || `${item.category} cleaning result`}
                   loading="lazy"
                   className="w-full object-cover transition-transform duration-700 group-hover:scale-105"
