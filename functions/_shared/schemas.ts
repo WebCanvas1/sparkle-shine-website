@@ -62,6 +62,7 @@ export const gallerySchema = z
       id: required(60),
       title: text(120),
       category: text(60),
+      item_type: z.enum(["single", "before_after"]).optional(),
       image_url: imageRef,
       after_image_url: z.union([z.string().trim().max(500), z.null()]),
       sort_order: z.number().int().min(0).max(999),

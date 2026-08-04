@@ -56,6 +56,8 @@ export type GalleryItem = {
   id: string;
   title: string;
   category: string;
+  /** Absent means "single" (backwards compatible). */
+  item_type?: "single" | "before_after";
   image_url: string;
   after_image_url: string | null;
   sort_order: number;
