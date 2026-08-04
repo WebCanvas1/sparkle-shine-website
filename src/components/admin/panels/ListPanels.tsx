@@ -3,7 +3,8 @@ import { ArrowDown, ArrowUp, Plus, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
-import { galleryImageFor, serviceImageFor } from "@/lib/content";
+import { adminApi } from "@/lib/admin-api";
+import { galleryImageFor, isBeforeAfter, serviceImageFor } from "@/lib/content";
 import type { ContentBundle, ContentSection, Faq, GalleryItem, Service, Testimonial } from "@/lib/content-data";
 
 import { Field, ImageField, PanelCard, SaveButton, TextAreaField, TextField, newId, useSectionEditor } from "../AdminKit";
@@ -20,6 +21,9 @@ function ListEditor<K extends Extract<ContentSection, "services" | "gallery" | "
   emptyItem,
   label,
   renderItem,
+  badge,
+  sanitize,
+  onRemove,
 }: {
   section: K;
   initial: ContentBundle[K];
@@ -31,11 +35,17 @@ function ListEditor<K extends Extract<ContentSection, "services" | "gallery" | "
     item: ContentBundle[K][number],
     patch: (patch: Partial<ContentBundle[K][number]>) => void,
   ) => React.ReactNode;
+  badge?: (item: ContentBundle[K][number]) => React.ReactNode;
+  sanitize?: (items: ContentBundle[K]) => ContentBundle[K];
+  onRemove?: (item: ContentBundle[K][number]) => void;
 }) {
   const { draft, update, dirty, save, saving } = useSectionEditor(section, initial);
   const items = draft as unknown as Item[];
 
-  const setItems = (next: Item[]) => update(reindex(next) as unknown as ContentBundle[K]);
+  const setItems = (next: Item[]) => {
+    const reindexed = reindex(next) as unknown as ContentBundle[K];
+    update(sanitize ? sanitize(reindexed) : reindexed);
+  };
 
   const move = (index: number, delta: number) => {
     const next = items.slice();
@@ -68,8 +78,9 @@ function ListEditor<K extends Extract<ContentSection, "services" | "gallery" | "
         {items.map((item, index) => (
           <article key={item.id} className="rounded-2xl border border-border/70 bg-background p-5">
             <header className="mb-4 flex flex-wrap items-center justify-between gap-3">
-              <h3 className="font-display text-sm font-bold text-foreground">
+              <h3 className="flex items-center gap-2 font-display text-sm font-bold text-foreground">
                 {label(item as never) || "Untitled"}
+                {badge?.(item as never)}
               </h3>
               <div className="flex items-center gap-2">
                 <label className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
@@ -94,7 +105,10 @@ function ListEditor<K extends Extract<ContentSection, "services" | "gallery" | "
                   variant="ghost"
                   size="icon"
                   aria-label="Delete"
-                  onClick={() => setItems(items.filter((_, i) => i !== index))}
+                  onClick={() => {
+                    onRemove?.(item as never);
+                    setItems(items.filter((_, i) => i !== index));
+                  }}
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>
