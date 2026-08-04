@@ -175,37 +175,105 @@ export function ServicesPanel({ initial }: { initial: Service[] }) {
 }
 
 export function GalleryPanel({ initial }: { initial: GalleryItem[] }) {
+  const typeOf = (item: GalleryItem): "single" | "before_after" =>
+    item.item_type ?? (item.after_image_url ? "before_after" : "single");
+
   return (
     <ListEditor
       section="gallery"
       initial={initial}
       title="Gallery"
-      description="Upload, replace, reorder and publish gallery images."
+      description="Upload, replace, reorder and publish gallery images — single photos or before & after comparisons."
       label={(g) => g.title}
+      badge={(g) => (
+        <span className="rounded-full bg-muted px-2.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-[0.12em] text-muted-foreground">
+          {typeOf(g) === "before_after" ? "Before & After" : "Single image"}
+        </span>
+      )}
+      sanitize={(items) =>
+        items.map((item) =>
+          typeOf(item) === "before_after" && !(item.image_url && item.after_image_url)
+            ? { ...item, is_published: false }
+            : item,
+        )
+      }
+      onRemove={(item) => {
+        void adminApi.deleteImage(`gallery:${item.id}`).catch(() => {});
+        void adminApi.deleteImage(`gallery:${item.id}:before`).catch(() => {});
+        void adminApi.deleteImage(`gallery:${item.id}:after`).catch(() => {});
+      }}
       emptyItem={() => ({
         id: newId("gallery"),
         title: "New image",
         category: "Homes",
+        item_type: "single",
         image_url: "",
         after_image_url: null,
         sort_order: 0,
         is_published: false,
       })}
-      renderItem={(item, patch) => (
-        <div className="grid gap-5 md:grid-cols-2">
-          <TextField label="Title" value={item.title} onChange={(v) => patch({ title: v })} />
-          <TextField label="Category" hint="Homes, Offices or Cars." value={item.category} onChange={(v) => patch({ category: v })} />
-          <div className="md:col-span-2">
-            <ImageField
-              label="Image"
-              name={`gallery:${item.id}`}
-              value={item.image_url}
-              fallback={galleryImageFor(item)}
-              onChange={(url) => patch({ image_url: url })}
-            />
+      renderItem={(item, patch) => {
+        const mode = typeOf(item);
+        const incomplete = mode === "before_after" && !(item.image_url && item.after_image_url);
+        return (
+          <div className="grid gap-5 md:grid-cols-2">
+            <TextField label="Title" value={item.title} onChange={(v) => patch({ title: v })} />
+            <TextField label="Category" hint="Homes, Offices or Cars." value={item.category} onChange={(v) => patch({ category: v })} />
+            <Field className="md:col-span-2" label="Item type" hint="Before & after items show an interactive comparison slider on the website.">
+              <div className="flex flex-wrap gap-2">
+                {(["single", "before_after"] as const).map((value) => (
+                  <Button
+                    key={value}
+                    type="button"
+                    variant={mode === value ? "default" : "outline"}
+                    onClick={() =>
+                      patch(
+                        value === "single"
+                          ? { item_type: "single", after_image_url: null }
+                          : { item_type: "before_after" },
+                      )
+                    }
+                  >
+                    {value === "single" ? "Single image" : "Before & After"}
+                  </Button>
+                ))}
+              </div>
+            </Field>
+
+            {mode === "single" ? (
+              <div className="md:col-span-2">
+                <ImageField
+                  label="Image"
+                  name={`gallery:${item.id}`}
+                  value={item.image_url}
+                  fallback={galleryImageFor(item)}
+                  onChange={(url) => patch({ image_url: url })}
+                />
+              </div>
+            ) : (
+              <>
+                <ImageField
+                  label="Before photo"
+                  name={`gallery:${item.id}:before`}
+                  value={item.image_url}
+                  onChange={(url) => patch({ image_url: url })}
+                />
+                <ImageField
+                  label="After photo"
+                  name={`gallery:${item.id}:after`}
+                  value={item.after_image_url ?? ""}
+                  onChange={(url) => patch({ after_image_url: url || null })}
+                />
+                {incomplete && (
+                  <p className="md:col-span-2 rounded-xl border border-destructive/40 bg-destructive/5 px-4 py-3 text-sm font-semibold text-destructive">
+                    Both a before photo and an after photo are required.
+                  </p>
+                )}
+              </>
+            )}
           </div>
-        </div>
-      )}
+        );
+      }}
     />
   );
 }
