@@ -50,6 +50,10 @@ const localGalleryImages: Record<string, string> = {
 export const galleryImageFor = (item: GalleryItem) =>
   item.image_url || localGalleryImages[item.id] || residentialImg;
 
+/** True when an item should render as a before/after comparison. */
+export const isBeforeAfter = (item: GalleryItem) =>
+  item.item_type === "before_after" || Boolean(item.image_url && item.after_image_url);
+
 export const serviceImageFor = (slug: string, imageUrl: string) => {
   if (imageUrl) return imageUrl;
   if (slug.includes("commercial")) return commercialImg;
