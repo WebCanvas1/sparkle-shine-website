@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { adminApi } from "@/lib/admin-api";
-import { galleryImageFor, isBeforeAfter, serviceImageFor } from "@/lib/content";
+import { galleryImageFor, serviceImageFor } from "@/lib/content";
 import type { ContentBundle, ContentSection, Faq, GalleryItem, Service, Testimonial } from "@/lib/content-data";
 
 import { Field, ImageField, PanelCard, SaveButton, TextAreaField, TextField, newId, useSectionEditor } from "../AdminKit";
