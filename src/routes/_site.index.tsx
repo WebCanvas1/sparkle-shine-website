@@ -41,11 +41,11 @@ function HomePage() {
       <ServicesSection />
       <WhyChooseUs />
       <HowItWorks />
+      <ContactSection />
       <Stats />
       <GallerySection />
       <Testimonials />
       <FaqSection />
-      <ContactSection />
     </>
   );
 }
